@@ -31,6 +31,10 @@ class MyApp extends StatelessWidget {
                 position: snap.data as Position,
               ),
             );
+          } else if (snap.hasError) {
+            return Center(
+              child: Text('$snap.hasError'),
+            );
           } else {
             return const Scaffold(
               body: Center(
