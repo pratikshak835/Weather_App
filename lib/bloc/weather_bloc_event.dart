@@ -1,17 +1,9 @@
-import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
 
-class WeatherBlocEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+abstract class WeatherBlocEvent {}
 
 class FetchWeather extends WeatherBlocEvent {
-  FetchWeather(this.position);
   final Position position;
 
-  @override
-  List<Object> get props => [position];
+  FetchWeather(this.position);
 }
-
-class StopFetchingWeather extends WeatherBlocEvent {}

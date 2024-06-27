@@ -1,23 +1,16 @@
-import 'package:equatable/equatable.dart';
 import 'package:weather/weather.dart';
 
-class WeatherBlocState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+abstract class WeatherBlocState {}
 
 class WeatherBlocInitial extends WeatherBlocState {}
 
 class WeatherBlocLoading extends WeatherBlocState {}
 
-class WeatherBlocFailure extends WeatherBlocState {}
-
 class WeatherBlocSuccess extends WeatherBlocState {
-  WeatherBlocSuccess(this.weather);
   final Weather weather;
+  final List<Weather> forecast;
 
-  @override
-  List<Object?> get props => [weather];
+  WeatherBlocSuccess({required this.weather, required this.forecast});
 }
 
-class WeatherBlocStopped extends WeatherBlocState {}
+class WeatherBlocFailure extends WeatherBlocState {}

@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:grocery_app/bloc/weather_bloc.dart';
-import 'package:grocery_app/bloc/weather_bloc_event.dart';
 import 'package:grocery_app/http_overide.dart';
-import 'package:grocery_app/screen/home_screen.dart';
+import 'package:grocery_app/screen/get_started_screen.dart';
+import 'package:weather/weather.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
@@ -18,32 +16,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final WeatherFactory weatherFactory =
+        WeatherFactory('d0c2344a6c5103533bf70487195132ca');
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FutureBuilder(
-        future: _determinePosition(),
-        builder: (context, snap) {
-          if (snap.hasData) {
-            return BlocProvider<WeatherBloc>(
-              create: (context) =>
-                  WeatherBloc()..add(FetchWeather(snap.data as Position)),
-              child: HomeScreen(
-                position: snap.data as Position,
-              ),
-            );
-          } else if (snap.hasError) {
-            return Center(
-              child: Text('$snap.hasError'),
-            );
-          } else {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        },
-      ),
+      home: GetStartedScreen(),
     );
   }
 }
